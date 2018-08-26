@@ -38,7 +38,9 @@
 
     <Home v-else-if="$page.frontmatter.home"/>
 
-    <Page
+    <API v-else-if="$page.frontmatter.api" />
+
+      <Page
       v-else
       :sidebar-items="sidebarItems"
     >
@@ -60,6 +62,7 @@
 import Vue from 'vue'
 import nprogress from 'nprogress'
 import Home from './Home.vue'
+import API from './API.vue'
 import Navbar from './Navbar.vue'
 import Page from './Page.vue'
 import Sidebar from './Sidebar.vue'
@@ -67,7 +70,7 @@ import SWUpdatePopup from './SWUpdatePopup.vue'
 import { resolveSidebarItems } from './util'
 
 export default {
-  components: { Home, Page, Sidebar, Navbar, SWUpdatePopup },
+  components: { Home, Page, Sidebar, Navbar, SWUpdatePopup, API },
 
   data () {
     return {
@@ -80,9 +83,7 @@ export default {
     shouldShowNavbar () {
       const { themeConfig } = this.$site
       const { frontmatter } = this.$page
-      if (
-        frontmatter.navbar === false ||
-        themeConfig.navbar === false) {
+      if (frontmatter.navbar === false || themeConfig.navbar === false) {
         return false
       }
       return (
@@ -99,6 +100,7 @@ export default {
       return (
         !frontmatter.layout &&
         !frontmatter.home &&
+        !frontmatter.api &&
         frontmatter.sidebar !== false &&
         this.sidebarItems.length
       )
@@ -179,5 +181,7 @@ export default {
 }
 </script>
 
-<style src="prismjs/themes/prism-tomorrow.css"></style>
+<style src="prismjs/themes/prism-tomorrow.css">
+</style>
+
 <style src="./styles/theme.styl" lang="stylus"></style>
